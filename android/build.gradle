@@ -1,34 +1,33 @@
-buildscript {
-  repositories {
-    jcenter()
-  }
-
-  dependencies {
-    classpath 'com.android.tools.build:gradle:2.3.+'
-  }
-}
-
 apply plugin: 'com.android.library'
 
 android {
-  compileSdkVersion 26
-  buildToolsVersion "26.0.1"
+  compileSdkVersion versions.compileSdk
+  buildToolsVersion versions.buildTools
 
   defaultConfig {
-    minSdkVersion 16
-    targetSdkVersion 26
+    minSdkVersion versions.minSdk
+    targetSdkVersion versions.targetSdk
     versionCode 1
     versionName "1.0"
   }
+
+  buildTypes {
+    debug {}
+    qa {}
+    fox {}
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+    sourceSets {}
+    splits {}
+  }
+
   lintOptions {
     abortOnError false
   }
 }
 
-repositories {
-  mavenCentral()
-}
-
 dependencies {
-  compile "com.facebook.react:react-native:+"
+  implementation "com.facebook.react:react-native:+"
 }
